@@ -1,14 +1,17 @@
+<!-- 
+@author = Pol Aroca isart 
+date =21/12/2023 
+-->
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    // Si no es administrador o gestor, redirigir a la página de inicio de sesión o a una página de error
     header("Location: index.php");
     exit();
 }
-$host = 'localhost'; // o la IP del servidor de bases de datos
-$usuario = 'root'; // tu usuario de la base de datos
-$contrasena = ''; // tu contrasenya de la base de datos
-$nombre_base_datos = 'formulario'; // el nombre de tu base de datos
+$host = 'localhost'; 
+$usuario = 'root'; 
+$contrasena = ''; 
+$nombre_base_datos = 'formulario'; 
 //hacer la conexion
 $conn = new mysqli($host, $usuario, $contrasena, $nombre_base_datos);
 //verificar la conexion
@@ -22,29 +25,23 @@ if (isset($_POST['usuario']) && isset($_POST['correo']) && isset($_POST['contras
     $correo = $_POST['correo'];
     $contrasenya = $_POST['contrasenya'];
     $nacimiento = $_POST['nacimiento'];
-
-    // Hashear la contraseña
+    // hacer que la contraseña sea hash
     $contrasenya_hash = password_hash($contrasenya, PASSWORD_DEFAULT);
 
-    // Preparar la sentencia SQL (la misma que ya tienes)
     $stmt = $conn->prepare("INSERT INTO usuarios (usuario, correo, contrasenya, nacimiento) VALUES (?, ?, ?, ?)");
 
-    // Verificar si la preparación fue exitosa
     if ($stmt === false) {
         die("Error al preparar la sentencia: " . $conn->error);
     }
 
-    // Vincular los parámetros a la sentencia (asegúrate de usar $contrasenya_hash en lugar de $contrasenya)
     $stmt->bind_param("ssss", $usuario, $correo, $contrasenya_hash, $nacimiento);
 
-    // Ejecutar la sentencia
     if ($stmt->execute()) {
         echo "Datos almacenados correctamente en la base de datos.<br>";
     } else {
         echo "Error al almacenar los datos: " . $stmt->error;
     }
 
-    // Cerrar la sentencia y la conexión
     $stmt->close();
     $conn->close();
 }

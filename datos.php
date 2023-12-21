@@ -1,4 +1,7 @@
-
+<!-- 
+@author = Pol Aroca isart 
+date =21/12/2023 
+-->
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -7,7 +10,7 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 require 'vendor/autoload.php';
-////libreria para hacer el mail
+////libreria para hacer el mail////
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 ///libraria para hacer excel
@@ -16,10 +19,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 $archivo = 'usuarios.xlsx';
-// <input type="number" name="telefono" placeholder="Telefono" required><br>
-// <input type="text" name="direccion" placeholder="Direccion" required><br>
-// <input type="text" name="ciudad" placeholder="Ciudad" required><br>
-// <input type="number" name="codigo_postal" placeholder="Codigo_Postal" required><br>
 if (isset($_POST['nombre_Completo']) && isset($_POST['correo']) && isset($_POST['telefono']) && isset($_POST['direccion']) && isset($_POST['ciudad']) && isset($_POST['codigo_postal'])) {
     $nombre_Completo = $_POST['nombre_Completo'];
     $correo = $_POST['correo'];

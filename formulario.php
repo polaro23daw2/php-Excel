@@ -1,7 +1,12 @@
+<!-- 
+@author = Pol Aroca isart 
+date =21/12/2023 
+-->
+// @author = Pol Aroca isart 
+// date =21/12/2023
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    // Si no es administrador o gestor, redirigir a la página de inicio de sesión o a una página de error
     header("Location: index.php");
     exit();
 }
@@ -13,12 +18,11 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/formulario.css">
 </head>
 <body>
     <?php
     if (!isset($_SESSION['formulario_enviado'])) {
-        // Mostrar el formulario solo si no se ha enviado anteriormente
     ?>
         <h1>Formulario para enviar datos</h1>
         <form action="datos.php" method="post">
@@ -32,9 +36,8 @@ if (!isset($_SESSION['usuario'])) {
         </form>
     <?php
     } else {
-        // Mostrar mensaje de agradecimiento si el formulario ha sido enviado
         echo "<p>Gracias por la información.</p>";
-        unset($_SESSION['formulario_enviado']); // Restablecer para futuros envíos
+        unset($_SESSION['formulario_enviado']); 
     }
     ?>
 </body>
